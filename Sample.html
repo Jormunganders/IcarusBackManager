@@ -11,14 +11,14 @@
 <button onclick="get(TEST,
     {name:'Juhezi'},function(data) {
         console.log(data);
-        console.log(toJson(data).name);
+        console.log(fromJson(data).name);
     })">getData
 </button>
 <button onclick="post(TEST,
     {password: '123456'},
     function(data) {
        console.log(data);
-       console.log(toJson(data).password);
+       console.log(fromJson(data).password);
     })">postData
 </button>
 </body>

@@ -6,7 +6,7 @@ function post(url, data, action) {
     $.post(url, data, action);
 }
 
-function toJson(json) {
+function fromJson(json) {
     if (typeof json === 'string') {
         return eval('(' + json + ')');
     } else {
