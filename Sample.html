@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Icarus-Back-Manager</title>
+    <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="common/Icarus.js"></script>
+</head>
+<body>
+<button onclick="get('http://result.loonglog.com/index.php',
+    {name:'Juhezi'},function(data) {
+        console.log(data);
+        console.log(toJson(data).name);
+    })">getData
+</button>
+<button onclick="post('http://result.loonglog.com/index.php',
+    {password: '123456'},
+    function(data) {
+       console.log(data);
+       console.log(toJson(data).password);
+    })">
+    postData
+</button>
+</body>
+</html>
