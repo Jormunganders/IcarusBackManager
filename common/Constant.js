@@ -1,1 +1,1 @@
-const TEST = 'http://result.loonglog.com/index.php';
+const LOGIN = 'http://115.159.56.141/index.php/Admin/Login/login';

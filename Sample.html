@@ -6,20 +6,34 @@
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="common/Icarus.js"></script>
     <script type="text/javascript" src="common/Constant.js"></script>
+    <script type="text/javascript">
+        function getData() {
+            let username = document.getElementById("un").value;
+            let password = document.getElementById("pw").value;
+            let verifycode = document.getElementById("pin").value;
+            return {
+                username: username,
+                passwd: password,
+                verify: verifycode
+            };
+    </script>
 </head>
 <body>
-<button onclick="get(TEST,
-    {name:'Juhezi'},function(data) {
-        console.log(data);
-        console.log(fromJson(data).name);
-    })">getData
-</button>
-<button onclick="post(TEST,
-    {password: '123456'},
+用户<input id="un" name="username" type="text" size="20px"/><br>
+密码<input id="pw" name="password" type="text" size="20px"/><br>
+验证码<input id="pin" name="code" type="text" size="10px"/>
+<img src="http://115.159.56.141/index.php/Admin/Login/showVerify" /><br>
+<button onclick="post(LOGIN,
+    getData(),
     function(data) {
        console.log(data);
-       console.log(fromJson(data).password);
-    })">postData
+//       console.log(fromJson(data).password);
+        if(data.status === 'ok') {
+            console.log('OK');
+        } else {
+            console.log(data.message);
+        }
+    })">Login
 </button>
 </body>
 </html>
