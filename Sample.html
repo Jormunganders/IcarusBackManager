@@ -16,18 +16,18 @@
                 passwd: password,
                 verify: verifycode
             };
+        }
     </script>
 </head>
 <body>
 用户<input id="un" name="username" type="text" size="20px"/><br>
 密码<input id="pw" name="password" type="text" size="20px"/><br>
 验证码<input id="pin" name="code" type="text" size="10px"/>
-<img src="http://115.159.56.141/index.php/Admin/Login/showVerify" /><br>
+<img src="http://115.159.56.141/index.php/Admin/Login/showVerify"/><br>
 <button onclick="post(LOGIN,
     getData(),
     function(data) {
        console.log(data);
-//       console.log(fromJson(data).password);
         if(data.status === 'ok') {
             console.log('OK');
         } else {

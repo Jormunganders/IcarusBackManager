@@ -1,9 +1,29 @@
 function get(url, data, action) {
-    $.get(url, data, action);
+    $.ajax({
+        type: 'get',
+        xhrFields: {
+            withCredentials: true
+        },
+        url: url,
+        data: data,
+        cache: false,
+        dataType: 'json',
+        success: action
+    })
 }
 
 function post(url, data, action) {
-    $.post(url, data, action);
+    $.ajax({
+        type: 'post',
+        xhrFields: {
+            withCredentials: true
+        },
+        url: url,
+        data: data,
+        cache: false,
+        dataType: 'json',
+        success: action
+    })
 }
 
 function fromJson(json) {
