@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Icarus-Back-Manager</title>
+    <title>BackManager-Login</title>
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="common/Icarus.js"></script>
     <script type="text/javascript" src="common/Constant.js"></script>
+
     <script type="text/javascript">
         function getData() {
             let username = document.getElementById("un").value;
@@ -17,23 +18,28 @@
                 verify: verifycode
             };
         }
+        function refresh(obj){
+            obj.src="http://115.159.56.141/index.php/Admin/Login/showVerify?id="+Math.random();
+        }
+
+
     </script>
 </head>
 <body>
 用户<input id="un" name="username" type="text" size="20px"/><br>
-密码<input id="pw" name="password" type="text" size="20px"/><br>
+密码<input id="pw" name="password" type="password" size="20px"/><br>
 验证码<input id="pin" name="code" type="text" size="10px"/>
-<img src="http://115.159.56.141/index.php/Admin/Login/showVerify"/><br>
-<button onclick="post(LOGIN,
-    getData(),
+<img src="http://115.159.56.141/index.php/Admin/Login/showVerify"
+     onclick="refresh(this)"/><br>
+<button onclick="post(LOGIN,getData(),
     function(data) {
-       console.log(data);
         if(data.status === 'ok') {
-            console.log('OK');
-        } else {
-            console.log(data.message);
+            window.open('Index.html','_blank');
         }
-    })">Login
+        else {
+            alert(data.message);
+        }
+    })"/>Login
 </button>
 </body>
 </html>
