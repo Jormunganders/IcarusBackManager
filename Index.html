@@ -51,6 +51,49 @@
                 document.getElementById("fun"+id).style.display="none";
             }
         }
+        $(document).ready(function () {
+            $("#list").click(function () {
+                $.ajax({
+                    type: 'get',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
+                    data: {page: "1", row: "20"},
+                    cache: false,
+                    dataType: 'json',
+                    success: getData
+                });
+            });
+        });
+
+        function getData(data) {
+            $(".imagetable").append('<tr>' +
+                '<th>用户名</th>' +
+                '<th>昵称</th>' +
+                '<th>创建时间</th>' +
+                '<th>最后登陆时间</th>' +
+                '<th>最后登录ip</th>' +
+                '<th>登录次数</th>' +
+                '<th>邮箱</th>' +
+                '<th>用户类型</th>' +
+                '<th>封号</th>' +
+                '<th>版主</th>' +
+                + ' </tr>');
+
+            for (var key in data.data) {
+                $(".imagetable").append('<tr>' +
+                    '<td>' + data.data[key].username + '</td>' +
+                    '<td>' + data.data[key].user_nick + '</td>' +
+                    '<td>' + data.data[key].create_time + '</td>' +
+                    '<td>' + data.data[key].last_login_time + '</td>' +
+                    '<td>' + data.data[key].last_login_ip + '</td>' +
+                    '<td>' + data.data[key].login_times + '</td>' +
+                    '<td>' + data.data[key].email + '</td>' +
+                    '<td>' + data.data[key].is_admin + '</td>' +
+                    '<td>' + data.data[key].is_seal + '</td>' +
+                    '<td>' + data.data[key].cid + '</td>' +
+                    + ' </tr>');}}
     </script>
 
 </head>
@@ -63,18 +106,9 @@
         <a href="#">退出系统</a>
     </div>
     <div id="sidebar-a">
-        <div id="fun1" style="display: none">
-            请输入用户ID
-            <input type="text" name="username" id="txt1" />
-            <button onclick="query()">查询</button><br>
-        <form>
-            用户昵称<input type="text" id="nick"/><br>
-            用户身份<input type="text" id="identy"/><br>
-            电子邮箱<input type="text" id="email"/><br>
-            登录次数<input type="text" id="ltimes"/><br>
-            用户状态<input type="text" id="seal"/>
-        </form>
-        </div>
+        <table class="imagetable">
+
+        </table>
     </div>
     <div id="content">
         <div id="nav">
@@ -82,7 +116,7 @@
                <div id="list1"  style="display: none">
                     <ul class="option">
                         <li><a href="#" onclick="showfun(1)">查找用户</a></li>
-                        <li><a href="#">用户列表</a></li>
+                        <li><a href="#" id="list">用户列表</a></li>
                     </ul>
                 </div>
             <div><input type="button" value="帖子管理"class="title" id="menu2" onclick="showmenu('2')"/></div>
