@@ -107,3 +107,8 @@ table.imagetable td {
     border-style: solid;
     border-color: #999999;
 }
+#uesradjust{
+    text-decoration: underline;
+    color: #FF9175;
+    font-size: 20px;
+}

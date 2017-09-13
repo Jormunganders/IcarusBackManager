@@ -67,6 +67,8 @@
             });
         });
 
+
+
         function getData(data) {
             $(".imagetable").append('<tr>' +
                 '<th>用户名</th>' +
@@ -93,7 +95,14 @@
                     '<td>' + data.data[key].is_admin + '</td>' +
                     '<td>' + data.data[key].is_seal + '</td>' +
                     '<td>' + data.data[key].cid + '</td>' +
-                    + ' </tr>');}}
+                    + ' </tr>');}
+
+            $(".imagetable").append('<a href="useradjust.html" id="uesradjust">用户身份调整</a>');
+
+
+
+
+        }
     </script>
 
 </head>
@@ -107,7 +116,9 @@
     </div>
     <div id="sidebar-a">
         <table class="imagetable">
-
+          <!--  <button id="uesradjust">用户身份调整</button>
+            <button id="banadjust">版主调整</button>
+            <button id="delete">删除用户</button>-->
         </table>
     </div>
     <div id="content">
