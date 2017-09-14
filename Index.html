@@ -51,22 +51,87 @@
                 document.getElementById("fun"+id).style.display="none";
             }
         }
+
         $(document).ready(function () {
-            $("#list").click(function () {
+            $("#clist").click(function () {
                 $.ajax({
                     type: 'get',
                     xhrFields: {
                         withCredentials: true
                     },
-                    url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
-                    data: {page: "1", row: "20"},
+                    url: 'http://115.159.56.141/index.php/Admin/Classification/getParentClassificationList',
+
                     cache: false,
                     dataType: 'json',
-                    success: getData
+                    success:secgetData
+
+
                 });
             });
         });
+        $(document).ready(function () {
 
+                $.ajax({
+                    type: 'get',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    url: 'http://115.159.56.141/index.php/Admin/User/getUserCount',
+                    cache: false,
+                    dataType: 'json',
+                    success: getUserCount
+                });
+
+        });
+
+         function getUserCount(data){
+             console.log(Math.ceil(data.data.count/5));
+             var page=Math.ceil(data.data.count/5);
+           return o={
+               page:page,
+               row:'5'
+           }
+
+         }
+
+         function secgetData(data)
+             {
+
+
+                 $(".cardlist").append('<tr>' +
+                     '<th>父分类名称</th>' +
+                     '<th>分类id</th>' +
+
+                         '<th>是否加入精选</th>'+
+                      ' </tr>');
+
+                 for (var key in data.data) {
+                     $(".cardlist").append('<tr>' +
+                         '<td>' + data.data[key].c_name + '</td>' +
+                         '<td>' + data.data[key].cid + '</td>' +
+
+                         '<td>' + data.data[key].is_featured + '</td>' +
+                          ' </tr>');}
+                 $(".cardlist").append('<a href="look.html" id="lookfor">点击查看</a>');
+
+                 //请输入要查看的父板块<input type="text" id="calltree"/>
+
+
+        }
+
+
+                $('.lookfor').on('click',function () {
+                    $.ajax({
+                        type: 'get',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        url:'http://115.159.56.141/index.php/Admin/Classification/getTreeClassification',
+                        data:getfatherCid,
+                        dataType: 'json',
+                        success:showchild
+                    });
+                })
 
 
         function getData(data) {
@@ -96,13 +161,41 @@
                     '<td>' + data.data[key].is_seal + '</td>' +
                     '<td>' + data.data[key].cid + '</td>' +
                     + ' </tr>');}
+         /*    function  addButton(o) {
+                var before = o.page-1;
+                 $(".imagetable").append('<button id="before"><a href="http://115.159.56.141/Admin/User/getUserList?page=' + before + '&row=5">前一页</a></button>');
+                 for(var i=1;i<o.page+1;i++)
+                 {
+                     $(".imagetable").append('<button id="add"'+ i + '><a href="useradjust.html">' + i + '</a></button>');
+                 }
+                 $(".imagetable").append('<button id="after"><a href="useradjust.html">后一页</a></button>');
+             }
+
+            addButton(o);
+*/
 
             $(".imagetable").append('<a href="useradjust.html" id="uesradjust">用户身份调整</a>');
-
-
-
-
         }
+
+
+        $(document).ready(function () {
+            $("#list").click(function () {
+                $.ajax({
+                    type: 'get',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
+                    data:o,
+                    cache: false,
+                    dataType: 'json',
+                    success: getData
+                });
+            });
+        });
+
+        //<button id="addi"><a href="#">i</a></button>
+
     </script>
 
 </head>
@@ -116,25 +209,30 @@
     </div>
     <div id="sidebar-a">
         <table class="imagetable">
-          <!--  <button id="uesradjust">用户身份调整</button>
-            <button id="banadjust">版主调整</button>
-            <button id="delete">删除用户</button>-->
+        </table>
+        <table class="cardlist">
+        </table>
+        <table class="cardtree">
         </table>
     </div>
+
+
+
     <div id="content">
         <div id="nav">
            <div><input type="button" value="用户管理" class="title" id="menu1" onclick="showmenu('1')"/></div>
                <div id="list1"  style="display: none">
                     <ul class="option">
-                        <li><a href="#" onclick="showfun(1)">查找用户</a></li>
+
                         <li><a href="#" id="list">用户列表</a></li>
+
                     </ul>
                 </div>
             <div><input type="button" value="帖子管理"class="title" id="menu2" onclick="showmenu('2')"/></div>
                 <div id="list2" style="display:none">
                     <ul class="option">
-                        <li><a href="#">搜索帖子</a></li>
-                        <li><a href="#">帖子列表</a></li>
+                        <li><a href="#" id="cardselect">搜索帖子</a></li>
+                        <li><a href="#" id="cardlist">帖子列表</a></li>
                         <li><a href="#">相关操作</a></li>
                     </ul>
                 </div>
@@ -142,7 +240,7 @@
         <div id="list3" style="display:none">
             <ul class="option">
                 <li><a href="#">搜索版块</a></li>
-                <li><a href="#">版块列表</a></li>
+                <li><a  id="clist" href="#">版块列表</a></li>
                 <li><a href="#">相关操作</a></li>
             </ul>
         </div>

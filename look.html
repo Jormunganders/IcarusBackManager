@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看子版块</title>
+    <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
+
+    <script>
+    function getfatherCid(){
+    var cid=document.getElementById("calltree").value;
+    return{cid:cid};
+    }
+    function  showchild(data) {
+    $(".cardtree").append('<tr>' +
+    '<th>子分类名称</th>' +
+    '<th>分类id</th>' +
+
+    '<th>是否加入精选</th>'+
+    ' </tr>');
+    for (var key in data.data) {
+    $(".cardtree").append('<tr>' +
+    '<td>' + data.data[key].c_name + '</td>' +
+    '<td>' + data.data[key].cid + '</td>' +
+
+    '<td>' + data.data[key].is_featured + '</td>' +
+    ' </tr>');}
+    }
+    $(document).ready(
+        function() {
+            $('.lookfor').click(function () {
+                $.ajax({
+                    type: 'get',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    url: 'http://115.159.56.141/index.php/Admin/Classification/getTreeClassification',
+                    data:getfatherCid(),
+                    dataType: 'json',
+                    success: showchild
+                });
+            });
+        })
+    $(document).ready(
+        function() {
+            $('.edit').click(function () {
+                $.ajax({
+                    type: 'post',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    url: 'http://115.159.56.141/index.php/Admin/Classification/editClassification',
+                    data:geteditCid(),
+                    dataType: 'json',
+                    success: function () {
+                        alert('修改成功');
+                    }
+                });
+            });
+        })
+        function geteditCid(){
+        var newname=document.getElementById('new').value;
+            var cid=document.getElementById('edittree').value;
+           return{
+               cName:newname,
+               cid:cid,
+           }
+        }
+
+    $(document).ready(
+        function() {
+            $('.delete').click(function () {
+                $.ajax({
+                    type: 'get',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    url: 'http://115.159.56.141/index.php/Admin/Classification/deleteClassification',
+                    data:geteditCid2(),
+                    dataType: 'json',
+                    success:function () {
+                        alert('删除成功');
+                    }
+                });
+            });
+        })
+    function geteditCid2(){
+            var cid2=document.getElementById("deletetree").value;
+            return{
+                cid:cid2,
+            };
+    }
+    $(document).ready(
+        function() {
+            $('.add').click(function () {
+                $.ajax({
+                    type: 'post',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    url: 'http://115.159.56.141/index.php/Admin/Classification/addClassification',
+                    data:getaddCid(),
+                    dataType: 'json',
+                    success:function () {
+                        alert('添加成功');
+                    }
+                });
+            });
+        })
+        function getaddCid(){
+        var newid=document.getElementById('addtree').value;
+        var newname2=document.getElementById('addname').value;
+        var feature=document.getElementById('featured').value;
+        return {
+            parentId:newid,
+            cName:newname2,
+            is_featured:feature,
+        };
+    }
+    </script>
+</head>
+<body>
+<div id="1">
+    请输入要查看的父版块ID<input type="text" id="calltree"/>
+    <button class="lookfor">查看</button>
+    </div>
+<div id="2">
+    请输入要添加的版块父类ID（无父版块为0）<input type="text" id="addtree"/>
+    请输入要添加的版块名称<input type="text" id="addname"/>
+    是否加精(1为加精)<input type="text" id="featured"/>
+    <button class="add">添加</button>
+</div>
+    <div id="3">
+    请输入要编辑的版块ID<input type="text" id="edittree"/>
+    请输入要编辑的版块新名称<input type="text" id="new"/>
+
+    <button class="edit">编辑</button>
+    </div>
+    请输入要删除的版块ID<input type="text" id="deletetree"/>
+    <button class="delete">删除</button>
+<div>
+    <table class="cardtree">
+    </table>
+</div>
+</body>
+</html>
