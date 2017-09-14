@@ -16,87 +16,49 @@
             else{
                 document.getElementById("list"+id).style.display="none";
             }
-        }function iframeclick(key)
+        }
+        function iframeclick(key)
         {
             document.getElementById("image").src = "show" + key +".html";
         }
 
-        function showfun(id){
-            var content = document.getElementById("fun"+id);
-            if(content.style.display == "none"){
-                document.getElementById("fun"+id).style.display="block";
-            }
-            else{
-                document.getElementById("fun"+id).style.display="none";
-            }
-        }
-
-
-
-
-
-                /*$('.lookfor').on('click',function () {
-                    $.ajax({
-                        type: 'get',
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        url:'http://115.159.56.141/index.php/Admin/Classification/getTreeClassification',
-                        data:getfatherCid,
-                        dataType: 'json',
-                        success:showchild
-                    });
-                })
-*/
-
-
-
-        //<button id="addi"><a href="#">i</a></button>
-
     </script>
-
 </head>
 <body>
 <div id="page-container">
     <div id="header">
         <h1>后台管理系统</h1>
-        <a href="#">返回首页</a>
+        <a href="#" target="function" id="show">返回首页</a>
         <a href="#">修改密码</a>
         <a href="#">退出系统</a>
     </div>
     <div id="sidebar-a">
-        <table class="cardlist">
-        </table>
-        <table class="cardtree">
-        </table>
+        <!--<table class="imagetable" id="tab1">
+          <button id="uesradjust">用户身份调整</button>
+            <button id="banadjust">版主调整</button>
+            <button id="delete">删除用户</button>
+        </table>-->
         <iframe id="image" width="100%" height="100%" scrolling="none"></iframe>
     </div>
-
-
-
     <div id="content">
         <div id="nav">
            <div><input type="button" value="用户管理" class="title" id="menu1" onclick="showmenu('1')"/></div>
                <div id="list1"  style="display: none">
                     <ul class="option">
-
-                        <li><a href="#"  onclick="iframeclick(1)">用户列表</a></li>
-
+                        <li><a href="#" onclick="iframeclick(1)" >用户列表</a></li>
                     </ul>
                 </div>
             <div><input type="button" value="帖子管理"class="title" id="menu2" onclick="showmenu('2')"/></div>
                 <div id="list2" style="display:none">
                     <ul class="option">
                         <li><a href="#" onclick="iframeclick(2)">帖子列表</a></li>
-                        <li><a href="#">相关操作</a></li>
                     </ul>
                 </div>
         <div><input type="button" value="版块管理"class="title" id="menu3" onclick="showmenu('3')"/></div>
         <div id="list3" style="display:none">
             <ul class="option">
-                <li><a href="#">搜索版块</a></li>
-                <li><a href="#" onclick="iframeclick(3)">版块列表</a></li>
-                <li><a href="#">相关操作</a></li>
+                <li><a href="#">版块列表</a></li>
+                <li><a href="#">添加版块</a></li>
             </ul>
         </div>
     </div>

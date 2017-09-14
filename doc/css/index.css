@@ -134,6 +134,11 @@ table.cardlist td {
     color: #FF9175;
     font-size: 20px;
 }
+#lookfor{
+    text-decoration: underline;
+    color: #FF9175;
+    font-size: 20px;
+}
 table.cardtree  {
     float: left;
     font-family: verdana,arial,sans-serif;

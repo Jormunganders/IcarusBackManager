@@ -117,6 +117,82 @@
             is_featured:feature,
         };
     }
+    $(document).ready(
+        function() {
+            $('#feature').click(function () {
+                $.ajax({
+                    type: 'get',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    url: 'http://115.159.56.141/index.php/Admin/Classification/actionClassification',
+                    data:getFeatured(),
+                    dataType: 'json',
+                    success:function () {
+                        alert('加精成功');
+                    }
+                });
+            });
+        })
+        function getFeatured() {
+            var fid=document.getElementById('reset').value;
+            return{
+                cid:fid,
+                action:'featured',
+            }
+
+        }
+    $(document).ready(
+    function() {
+        $('#undo').click(function () {
+            $.ajax({
+                type: 'get',
+                xhrFields: {
+                    withCredentials: true
+                },
+                url: 'http://115.159.56.141/index.php/Admin/Classification/actionClassification',
+                data:getcancelFeatured(),
+                dataType: 'json',
+                success:function () {
+                    alert('取消加精成功');
+                }
+            });
+        });
+    })
+    function getcancelFeatured() {
+        var fid=document.getElementById('reset').value;
+        return{
+            cid:fid,
+            action:'cancelFeatured',
+        }
+
+    }
+    $(document).ready(
+    function() {
+        $('#movet').click(function () {
+            $.ajax({
+                type: 'get',
+                xhrFields: {
+                    withCredentials: true
+                },
+                url: 'http://115.159.56.141/index.php/Admin/Classification/actionClassification',
+                data:moveParent(),
+                dataType: 'json',
+                success:function () {
+                    alert('移动版块成功');
+                }
+            });
+        });
+    })
+        function moveParent() {
+            var mid=document.getElementById('reset').value;
+            var parentId=document.getElementById('move').value;
+            return{
+                cid:mid,
+                action:'move',
+                parentId:parentId,
+            }
+        }
     </script>
 </head>
 <body>
@@ -138,6 +214,13 @@
     </div>
     请输入要删除的版块ID<input type="text" id="deletetree"/>
     <button class="delete">删除</button>
+<div>
+    请输入要修改的版块ID<input type='text' id="reset"/>
+    <button id="feature">加精</button>
+    <button id="undo">取消加精</button>
+    移动版块需要输入父版块ID<input type="text" id="move"/>
+    <button id="movet">确认移动</button>
+</div>
 <div>
     <table class="cardtree">
     </table>
