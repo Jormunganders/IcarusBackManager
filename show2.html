@@ -2,9 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>show2</title>
+    <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        $.ajax({
+            type: 'get',
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://115.159.56.141/index.php/Admin/Posts/getPostsList',
+            data: {page: "1", row: "20"},
+            cache: false,
+            dataType: 'json',
+            success: getData
+
+        });
+        function getData(data) {
+            $(".imagetable").append('<tr>' +
+                '<th>添加时间</th>' +
+                '<th>作者</th>' +
+                '<th>浏览数</th>' +
+                '<th>内容</th>' +
+                '<th>是否结贴</th>' +
+                '<th>是否推荐</th>' +
+                '<th>是否置顶</th>' +
+                '<th>关键字</th>' +
+                '<th>帖子id</th>' +
+                '<th>标题</th>' +
+                + ' </tr>');
+
+            for (var key in data.data) {
+                $(".imagetable").append('<tr>' +
+                    '<td>' + data.data[key].add_time + '</td>' +
+                    '<td>' + data.data[key].author + '</td>' +
+                    '<td>' + data.data[key].click + '</td>' +
+                    '<td>' + data.data[key].content + '</td>' +
+                    '<td>' + data.data[key].is_end + '</td>' +
+                    '<td>' + data.data[key].is_featured + '</td>' +
+                    '<td>' + data.data[key].is_top + '</td>' +
+                    '<td>' + data.data[key].keywords + '</td>' +
+                    '<td>' + data.data[key].posts_id + '</td>' +
+                    '<td>' + data.data[key].title + '</td>' +
+                    + ' </tr>');}
+
+        }
+    </script>
 </head>
 <body>
-
+<table class="imagetable">
+</table>
 </body>
 </html>
