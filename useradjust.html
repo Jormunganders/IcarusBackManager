@@ -34,7 +34,9 @@
          {
              if(data.data[i].username==document.getElementById('adjust').value) data.data[i].is_admin=2;
          }
+         if(data.status=='ok')
          alert("赋予管理员权限成功！");
+        else alert('赋予管理员权限失败!');
     }
     $(document).ready(
         function(){
@@ -47,8 +49,10 @@
                     url:'http://115.159.56.141/index.php/Admin/User/addModerator',
                     data:getCid(),
                     dataType: 'json',
-                    success:function () {
+                    success:function (data) {
+                        if(data.status=="ok")
                         alert("赋予版主权限成功！");
+                        else alert('赋予版主权限失败！');
                     }
                 });
             });
@@ -64,8 +68,10 @@
                     url:'http://115.159.56.141/index.php/Admin/User/sealUser',
                     data:getId(),
                     dataType: 'json',
-                  success:function () {
+                  success:function (data) {
+                        if(data.status=="ok")
                       alert('封号成功!');
+                        else alert('封号失败!');
                   }
                 });
             });
@@ -81,8 +87,10 @@
                     url:'http://115.159.56.141/index.php/Admin/User/cancelSeal',
                     data:getId(),
                     dataType: 'json',
-                    success:function () {
+                    success:function (data) {
+                        if(data.status='ok')
                         alert("解封成功!");
+                        else alert('解封失败!')
                     }
                 });
             });
