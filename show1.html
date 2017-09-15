@@ -40,11 +40,11 @@
                        withCredentials: true
                    },
                    url: 'http://115.159.56.141/index.php/Admin/User/getUserCount',
-
+                   async:false,
                    cache: false,
                    dataType: 'json',
                    success:function (data) {
-                       var value = data.data.count;
+                        window.count = data.data.count;
                    }
 
                });
@@ -67,16 +67,11 @@
                        url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
                        data: {page: pageArr['page'], row: pageArr['row']},
                        rollPage: "5",
-                       totalRows:value,
-                       pageRows: '2',
+                       totalRows:count,
+                       pageRows:pageArr['row'],
                        nowPage: pageArr['page']
                    };
-                  /* var pageSuccess = function (data) {
-                       console.log(data);
-                       var pagestyle = echoPage(config);
-                       $('.page').html(pagestyle);
-                       console.log(pageArr['row']);
-                   };*/
+
 
 
             $(document).ready(function () {
@@ -112,18 +107,7 @@
                     '<td>' + data.data[key].cid + '</td>' +
                     +' </tr>');
             }
-            /*    function  addButton(o) {
-            var before = o.page-1;
-            $(".imagetable").append('<button id="before"><a href="http://115.159.56.141/Admin/User/getUserList?page=' + before + '&row=5">前一页</a></button>');
-            for(var i=1;i<o.page+1;i++)
-            {
-            $(".imagetable").append('<button id="add"'+ i + '><a href="useradjust.html">' + i + '</a></button>');
-            }
-            $(".imagetable").append('<button id="after"><a href="useradjust.html">后一页</a></button>');
-            }
 
-            addButton(o);
-            */
             var pagestyle = echoPage(config);
             $('.page').html(pagestyle);
             $(".imagetable").append('<a href="useradjust.html" id="uesradjust">用户身份调整</a>');
@@ -131,18 +115,8 @@
         }
 
 
-        /*$.ajax({
-            type: 'get',
-            xhrFields: {
-                withCredentials: true
-            },
-            url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
-            data: {page: '1', row: '20'},
-            cache: false,
-            dataType: 'json',
-            success: getData
-        });
-*/
+
+
 
         function Ajax(url, data, success) {
             $.ajax({
