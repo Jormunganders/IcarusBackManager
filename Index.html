@@ -18,7 +18,7 @@
             }
         }function iframeclick(key)
         {
-            document.getElementById("image").src = "show" + key +".html";
+            document.getElementById("image").src = "show" + key +".html?page=1&row=5";
         }
 
         function showfun(id){
@@ -65,10 +65,7 @@
         <a href="#">退出系统</a>
     </div>
     <div id="sidebar-a">
-        <table class="cardlist">
-        </table>
-        <table class="cardtree">
-        </table>
+
         <iframe id="image" width="100%" height="100%" scrolling="none"></iframe>
     </div>
 
@@ -88,15 +85,15 @@
                 <div id="list2" style="display:none">
                     <ul class="option">
                         <li><a href="#" onclick="iframeclick(2)">帖子列表</a></li>
-                        <li><a href="#">相关操作</a></li>
+
                     </ul>
                 </div>
         <div><input type="button" value="版块管理"class="title" id="menu3" onclick="showmenu('3')"/></div>
         <div id="list3" style="display:none">
             <ul class="option">
-                <li><a href="#">搜索版块</a></li>
+
                 <li><a href="#" onclick="iframeclick(3)">版块列表</a></li>
-                <li><a href="#">相关操作</a></li>
+
             </ul>
         </div>
     </div>

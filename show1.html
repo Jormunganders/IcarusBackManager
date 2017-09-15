@@ -7,91 +7,210 @@
     <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
 
-            /*
+        /*
+        $.ajax({
+            type: 'get',
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://115.159.56.141/index.php/Admin/User/getUserCount',
+            cache: false,
+            dataType: 'json',
+            success: getUserCount
+        });
+
+
+
+    function getUserCount(data){
+        console.log(Math.ceil(data.data.count/5));
+        var page=Math.ceil(data.data.count/5);
+        return o={
+            page:page,
+            row:'5'
+        }
+
+    }*/
+        var str = location.href; //取得整个地址栏
+        var num = str.indexOf("?");
+        str = str.substr(num + 1);
+        var pageArr = new Array();
+        $.ajax({
+                   type: 'get',
+                   xhrFields: {
+                       withCredentials: true
+                   },
+                   url: 'http://115.159.56.141/index.php/Admin/User/getUserCount',
+
+                   cache: false,
+                   dataType: 'json',
+                   success:function (data) {
+                       var value = data.data.count;
+                   }
+
+               });
+
+
+
+               if (num > 0) {
+                   var arr = str.split("&"); //各个参数放到数组里
+                   for (var i = 0; i < arr.length; i++) {
+                       num = arr[i].indexOf("=");
+                       if (num > 0) {
+                           name = arr[i].substring(0, num);
+                           value = arr[i].substr(num + 1);
+                           pageArr[name] = value;
+                       }
+                   }
+
+
+                   var config = {
+                       url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
+                       data: {page: pageArr['page'], row: pageArr['row']},
+                       rollPage: "5",
+                       totalRows:value,
+                       pageRows: '2',
+                       nowPage: pageArr['page']
+                   };
+                  /* var pageSuccess = function (data) {
+                       console.log(data);
+                       var pagestyle = echoPage(config);
+                       $('.page').html(pagestyle);
+                       console.log(pageArr['row']);
+                   };*/
+
+
+            $(document).ready(function () {
+                Ajax(config['url'], config['data'], getData);
+            })
+        }
+
+        function getData(data) {
+            $(".imagetable").append('<tr>' +
+                '<th>用户名</th>' +
+                '<th>昵称</th>' +
+                '<th>创建时间</th>' +
+                '<th>最后登陆时间</th>' +
+                '<th>最后登录ip</th>' +
+                '<th>登录次数</th>' +
+                '<th>邮箱</th>' +
+                '<th>用户类型</th>' +
+                '<th>封号</th>' +
+                '<th>版主</th>' +
+                +' </tr>');
+
+            for (var key in data.data) {
+                $(".imagetable").append('<tr>' +
+                    '<td>' + data.data[key].username + '</td>' +
+                    '<td>' + data.data[key].user_nick + '</td>' +
+                    '<td>' + data.data[key].create_time + '</td>' +
+                    '<td>' + data.data[key].last_login_time + '</td>' +
+                    '<td>' + data.data[key].last_login_ip + '</td>' +
+                    '<td>' + data.data[key].login_times + '</td>' +
+                    '<td>' + data.data[key].email + '</td>' +
+                    '<td>' + data.data[key].is_admin + '</td>' +
+                    '<td>' + data.data[key].is_seal + '</td>' +
+                    '<td>' + data.data[key].cid + '</td>' +
+                    +' </tr>');
+            }
+            /*    function  addButton(o) {
+            var before = o.page-1;
+            $(".imagetable").append('<button id="before"><a href="http://115.159.56.141/Admin/User/getUserList?page=' + before + '&row=5">前一页</a></button>');
+            for(var i=1;i<o.page+1;i++)
+            {
+            $(".imagetable").append('<button id="add"'+ i + '><a href="useradjust.html">' + i + '</a></button>');
+            }
+            $(".imagetable").append('<button id="after"><a href="useradjust.html">后一页</a></button>');
+            }
+
+            addButton(o);
+            */
+            var pagestyle = echoPage(config);
+            $('.page').html(pagestyle);
+            $(".imagetable").append('<a href="useradjust.html" id="uesradjust">用户身份调整</a>');
+
+        }
+
+
+        /*$.ajax({
+            type: 'get',
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
+            data: {page: '1', row: '20'},
+            cache: false,
+            dataType: 'json',
+            success: getData
+        });
+*/
+
+        function Ajax(url, data, success) {
             $.ajax({
                 type: 'get',
                 xhrFields: {
                     withCredentials: true
                 },
-                url: 'http://115.159.56.141/index.php/Admin/User/getUserCount',
+                url: url,
+                data: data,
                 cache: false,
                 dataType: 'json',
-                success: getUserCount
+                success: getData
             });
+        }
 
+        function echoPage(config) {
+            var totalRows = config['totalRows'];//总行数
+            var rollPage = config['rollPage'];//每页显示得页码
+            var pageRows = config['pageRows'];//一页显示几行
+            var nowPage = config['nowPage'];//当前行数
+            var totalPages = Math.ceil(totalRows / pageRows);//总页数
+            var page = 1;
+            var link_page = '';
 
-
-        function getUserCount(data){
-            console.log(Math.ceil(data.data.count/5));
-            var page=Math.ceil(data.data.count/5);
-            return o={
-                page:page,
-                row:'5'
+            function url(page) {
+                return 'file:///D:/test/show1.html?page=' + page + '&row=' + pageRows;
             }
 
-        }*/
-    function getData(data) {
-    $(".imagetable").append('<tr>' +
-    '<th>用户名</th>' +
-    '<th>昵称</th>' +
-    '<th>创建时间</th>' +
-    '<th>最后登陆时间</th>' +
-    '<th>最后登录ip</th>' +
-    '<th>登录次数</th>' +
-    '<th>邮箱</th>' +
-    '<th>用户类型</th>' +
-    '<th>封号</th>' +
-    '<th>版主</th>' +
-    + ' </tr>');
+            var up_row = nowPage - 1;
+            var up_page = up_row > 0 ? '<a class="prev" href="' + url(up_row) + '">' + '上一页' + '</a>' : '<a class="prev not-allowed" href="javascript:;">' + '上一页' + '</a>';
 
-    for (var key in data.data) {
-    $(".imagetable").append('<tr>' +
-    '<td>' + data.data[key].username + '</td>' +
-    '<td>' + data.data[key].user_nick + '</td>' +
-    '<td>' + data.data[key].create_time + '</td>' +
-    '<td>' + data.data[key].last_login_time + '</td>' +
-    '<td>' + data.data[key].last_login_ip + '</td>' +
-    '<td>' + data.data[key].login_times + '</td>' +
-    '<td>' + data.data[key].email + '</td>' +
-    '<td>' + data.data[key].is_admin + '</td>' +
-    '<td>' + data.data[key].is_seal + '</td>' +
-    '<td>' + data.data[key].cid + '</td>' +
-    + ' </tr>');}
-    /*    function  addButton(o) {
-    var before = o.page-1;
-    $(".imagetable").append('<button id="before"><a href="http://115.159.56.141/Admin/User/getUserList?page=' + before + '&row=5">前一页</a></button>');
-    for(var i=1;i<o.page+1;i++)
-    {
-    $(".imagetable").append('<button id="add"'+ i + '><a href="useradjust.html">' + i + '</a></button>');
-    }
-    $(".imagetable").append('<button id="after"><a href="useradjust.html">后一页</a></button>');
-    }
+            var down_row = Number(nowPage) + 1;
+            var down_page = (down_row <= totalPages) ? '<a class="next" href="' + url(down_row) + '">下一页</a>' : '<a class="next not-allowed" href="javascript:;">下一页</a>';
 
-    addButton(o);
-    */
+            //第一页
+            var the_first = '<a class="first" href="' + url(1) + '">首页</a>';
 
-    $(".imagetable").append('<a href="useradjust.html" id="uesradjust">用户身份调整</a>');
-    }
+            //最后一页
+            var the_end = '<a class="end" href="' + url(totalPages) + '">末页</a>';
+            for (var i = 1; i <= rollPage; i++) {
+                if ((nowPage - rollPage / 2) <= 0) {//前rollPage页的处理
+                    page = i;
+                } else if ((Number(nowPage) + rollPage / 2 - 1) >= totalPages) {//后rollPage页的处理
+                    page = totalPages - Number(rollPage) + i;
+                } else {//中间其他页的处理
+                    page = nowPage - Math.ceil(rollPage / 2) + i;
+                }
+                if (page > 0) {
+                    if (page != nowPage) {
+                        if (page <= totalPages) {
+                            link_page += '<a class="num" href="' + url(page) + '">' + page + '</a>';
+                        } else {
+                            break;
+                        }
+                    } else {
+                        link_page += '<span class="current">' + page + '</span>';
+                    }
+                }
+            }
 
-
-
-
-    $.ajax({
-    type: 'get',
-    xhrFields: {
-    withCredentials: true
-    },
-    url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
-    data:{page:'1',row:'20'},
-    cache: false,
-    dataType: 'json',
-    success: getData
-    });
+            return the_first + up_page + link_page + down_page + the_end;
+        }
 
 
     </script>
 </head>
 <body>
 <table class="imagetable"></table>
+<div class="page"></div>
 </body>
 </html>
