@@ -7,29 +7,6 @@
     <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
 
-        /*
-        $.ajax({
-            type: 'get',
-            xhrFields: {
-                withCredentials: true
-            },
-            url: 'http://115.159.56.141/index.php/Admin/User/getUserCount',
-            cache: false,
-            dataType: 'json',
-            success: getUserCount
-        });
-
-
-
-    function getUserCount(data){
-        console.log(Math.ceil(data.data.count/5));
-        var page=Math.ceil(data.data.count/5);
-        return o={
-            page:page,
-            row:'5'
-        }
-
-    }*/
         var str = location.href; //取得整个地址栏
         var num = str.indexOf("?");
         str = str.substr(num + 1);
