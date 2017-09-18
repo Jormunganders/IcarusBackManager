@@ -6,25 +6,24 @@
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
     $(document).ready(
-    function(){
-    $('#guide').click(function () {
-    $.ajax({
-    type: 'post',
-    xhrFields: {
-    withCredentials: true
-    },
-    url:'http://115.159.56.141/index.php/Admin/User/addAdministrator',
-    data:getId(),
-    dataType: 'json',
-    success:useradjust
-    });
-    });
-    });
+        function(){
+            $('#guide').click(function () {
+                $.ajax({
+                    type: 'post',
+                    xhrFields: {
+                    withCredentials: true
+                        },
+                    url:'http://115.159.56.141/index.php/Admin/User/addAdministrator',
+                    data:getId(),
+                    dataType: 'json',
+                    success:show11
+                });
+            });
+        });
      function getId() {
          var id=document.getElementById('adjust').value;
          return {username:id};
      }
-
     function useradjust(data) {
         var num=0;
         for(num in data){
@@ -97,13 +96,12 @@
      }
     </script>
 </head>
-
-请输入要修改的id<input type="text" id="adjust" />
-<button id="guide">赋予管理员权限</button>
-<button id="lock">封号</button>
-<button id="unlock">解封</button>
-请输入板块名称<input type="text" id="bankuainumber" />
-<button id="banzhu">赋予版主权限</button>
-
+<body>
+    输入用户ID:<input type="text" id="adjust" /><br>
+    是否赋予管理员权限<button id="guide">确认</button>
+    <button id="lock">封号</button>
+    <button id="unlock">解封</button>
+    请输入板块名称<input type="text" id="bankuainumber" />
+    <button id="banzhu">赋予版主权限</button>
 </body>
 </html>

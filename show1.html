@@ -6,7 +6,6 @@
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
-
             /*
             $.ajax({
                 type: 'get',
@@ -30,65 +29,57 @@
             }
 
         }*/
+            $.ajax({
+                type: 'get',
+                xhrFields: {
+                    withCredentials: true
+                },
+                url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
+                data:{page:'1',row:'20'},
+                cache: false,
+                dataType: 'json',
+                success: getData
+            });
     function getData(data) {
-    $(".imagetable").append('<tr>' +
-    '<th>用户名</th>' +
-    '<th>昵称</th>' +
-    '<th>创建时间</th>' +
-    '<th>最后登陆时间</th>' +
-    '<th>最后登录ip</th>' +
-    '<th>登录次数</th>' +
-    '<th>邮箱</th>' +
-    '<th>用户类型</th>' +
-    '<th>封号</th>' +
-    '<th>版主</th>' +
-    + ' </tr>');
-
-    for (var key in data.data) {
-    $(".imagetable").append('<tr>' +
-    '<td>' + data.data[key].username + '</td>' +
-    '<td>' + data.data[key].user_nick + '</td>' +
-    '<td>' + data.data[key].create_time + '</td>' +
-    '<td>' + data.data[key].last_login_time + '</td>' +
-    '<td>' + data.data[key].last_login_ip + '</td>' +
-    '<td>' + data.data[key].login_times + '</td>' +
-    '<td>' + data.data[key].email + '</td>' +
-    '<td>' + data.data[key].is_admin + '</td>' +
-    '<td>' + data.data[key].is_seal + '</td>' +
-    '<td>' + data.data[key].cid + '</td>' +
-    + ' </tr>');}
+        $(".imagetable").append('<tr>' +
+            '<th>用户名</th>' +
+            '<th>昵称</th>' +
+            '<th>创建时间</th>' +
+            '<th>最后登陆时间</th>' +
+            '<th>最后登录ip</th>' +
+            '<th>登录次数</th>' +
+            '<th>邮箱</th>' +
+            '<th>用户类型</th>' +
+            '<th>封号</th>' +
+            '<th>版主</th>' +
+            +' </tr>');
+        for (var key in data.data) {
+            $(".imagetable").append('<tr>' +
+                '<td>' + data.data[key].username + '</td>' +
+                '<td>' + data.data[key].user_nick + '</td>' +
+                '<td>' + data.data[key].create_time + '</td>' +
+                '<td>' + data.data[key].last_login_time + '</td>' +
+                '<td>' + data.data[key].last_login_ip + '</td>' +
+                '<td>' + data.data[key].login_times + '</td>' +
+                '<td>' + data.data[key].email + '</td>' +
+                '<td>' + data.data[key].is_admin + '</td>' +
+                '<td>' + data.data[key].is_seal + '</td>' +
+                '<td>' + data.data[key].cid + '</td>' +
+                +' </tr>');
+        }
+    }
     /*    function  addButton(o) {
     var before = o.page-1;
     $(".imagetable").append('<button id="before"><a href="http://115.159.56.141/Admin/User/getUserList?page=' + before + '&row=5">前一页</a></button>');
     for(var i=1;i<o.page+1;i++)
     {
-    $(".imagetable").append('<button id="add"'+ i + '><a href="useradjust.html">' + i + '</a></button>');
+    $(".imagetable").append('<button id="add"'+ i + '><a href="show11.html">' + i + '</a></button>');
     }
-    $(".imagetable").append('<button id="after"><a href="useradjust.html">后一页</a></button>');
+    $(".imagetable").append('<button id="after"><a href="show11.html">后一页</a></button>');
     }
 
     addButton(o);
     */
-
-    $(".imagetable").append('<a href="useradjust.html" id="uesradjust">用户身份调整</a>');
-    }
-
-
-
-
-    $.ajax({
-    type: 'get',
-    xhrFields: {
-    withCredentials: true
-    },
-    url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
-    data:{page:'1',row:'20'},
-    cache: false,
-    dataType: 'json',
-    success: getData
-    });
-
-
     </script>
 </head>
 <body>

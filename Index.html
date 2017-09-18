@@ -16,25 +16,11 @@
             else{
                 document.getElementById("list"+id).style.display="none";
             }
-        }function iframeclick(key)
+        }
+        function iframeclick(key)
         {
             document.getElementById("image").src = "show" + key +".html";
         }
-
-        function showfun(id){
-            var content = document.getElementById("fun"+id);
-            if(content.style.display == "none"){
-                document.getElementById("fun"+id).style.display="block";
-            }
-            else{
-                document.getElementById("fun"+id).style.display="none";
-            }
-        }
-
-
-
-
-
                 /*$('.lookfor').on('click',function () {
                     $.ajax({
                         type: 'get',

@@ -6,20 +6,22 @@
     <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-        $.ajax({
-            type: 'get',
-            xhrFields: {
-                withCredentials: true
-            },
-            url: 'http://115.159.56.141/index.php/Admin/Posts/getPostsList',
-            data: {page: "1", row: "20"},
-            cache: false,
-            dataType: 'json',
-            success: getData
-
-        });
+       $(document).ready(function() {
+           $.ajax({
+               type: 'get',
+               xhrFields: {
+                   withCredentials: true
+               },
+               url: 'http://115.159.56.141/index.php/Admin/Posts/getPostsList',
+               data: {page: "1", row: "20"},
+               cache: false,
+               dataType: 'json',
+               success: getData
+           });
+       });
         function getData(data) {
             $(".imagetable").append('<tr>' +
+                '<th>操作</th>'+
                 '<th>添加时间</th>' +
                 '<th>作者</th>' +
                 '<th>浏览数</th>' +
@@ -31,9 +33,9 @@
                 '<th>帖子id</th>' +
                 '<th>标题</th>' +
                 + ' </tr>');
-
             for (var key in data.data) {
                 $(".imagetable").append('<tr>' +
+                    '<td><input type="checkbox" name="choose"/></td>'+
                     '<td>' + data.data[key].add_time + '</td>' +
                     '<td>' + data.data[key].author + '</td>' +
                     '<td>' + data.data[key].click + '</td>' +
@@ -45,12 +47,120 @@
                     '<td>' + data.data[key].posts_id + '</td>' +
                     '<td>' + data.data[key].title + '</td>' +
                     + ' </tr>');}
-
         }
+       var data1 = [];
+        $(function() {
+            $("#btn1").click(function () {
+                $("input[name='choose']:checked").each(function () {
+                    var n = $(this).parents("tr").index();
+                    var m = $("#tab2").find("tr:eq(" + n + ")").find("td:eq(9)").text();
+                    data1.push(m);
+                });
+                for (var i = 0; i < data1.length; i++) {
+                    var id = data1[i]
+                    $.ajax({
+                        type: 'get',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        url: 'http://115.159.56.141/index.php/Admin/Posts/deletePosts',
+                        data: {postsId: id},
+                        cache: false,
+                        dataType: 'json',
+                        success: function () {
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+       });//删除操作
+       var data2 = [];
+       $(function() {
+           $("#btn2").click(function () {
+               $("input[name='choose']:checked").each(function () {
+                   var n = $(this).parents("tr").index();
+                   var m = $("#tab2").find("tr:eq(" + n + ")").find("td:eq(9)").text();
+                   data2.push(m);
+               });
+               for (var i = 0; i < data2.length; i++) {
+                   var id = data2[i]
+                   $.ajax({
+                       type: 'get',
+                       xhrFields: {
+                           withCredentials: true
+                       },
+                       url: 'http://115.159.56.141/index.php/Admin/Posts/actionPosts',
+                       data: {postsId: id ,action:"recommend"},
+                       cache: false,
+                       dataType: 'json',
+                       success: function () {
+                           window.location.reload();
+                       }
+                   });
+               }
+           });
+       });//推荐操作
+       var data3 = [];
+       $(function() {
+           $("#btn3").click(function () {
+               $("input[name='choose']:checked").each(function () {
+                   var n = $(this).parents("tr").index();
+                   var m = $("#tab2").find("tr:eq(" + n + ")").find("td:eq(9)").text();
+                   data3.push(m);
+               });
+               for (var i = 0; i < data3.length; i++) {
+                   var id = data3[i]
+                   $.ajax({
+                       type: 'get',
+                       xhrFields: {
+                           withCredentials: true
+                       },
+                       url: 'http://115.159.56.141/index.php/Admin/Posts/actionPosts',
+                       data: {postsId: id ,action:"sticky"},
+                       cache: false,
+                       dataType: 'json',
+                       success: function () {
+                           window.location.reload();
+                       }
+                   });
+               }
+           });
+       });//置顶操作
+       var data4 = [];
+       $(function() {
+           $("#btn4").click(function () {
+               $("input[name='choose']:checked").each(function () {
+                   var n = $(this).parents("tr").index();
+                   var m = $("#tab2").find("tr:eq(" + n + ")").find("td:eq(9)").text();
+                   data4.push(m);
+               });
+               for (var i = 0; i < data4.length; i++) {
+                   var id = data4[i]
+                   $.ajax({
+                       type: 'get',
+                       xhrFields: {
+                           withCredentials: true
+                       },
+                       url: 'http://115.159.56.141/index.php/Admin/Posts/actionPosts',
+                       data: {postsId: id ,action:"hide"},
+                       cache: false,
+                       dataType: 'json',
+                       success: function () {
+                           window.location.reload();
+                       }
+                   });
+               }
+           });
+       });//隐藏操作
     </script>
 </head>
 <body>
-<table class="imagetable">
+<table class="imagetable" id="tab2">
 </table>
+<button id="btn1">删除</button>
+<button id="btn2">推荐</button>
+<button id="btn3">置顶</button>
+<button id="btn4">隐藏</button>
+
 </body>
 </html>
