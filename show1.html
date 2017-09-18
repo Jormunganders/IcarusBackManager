@@ -6,11 +6,16 @@
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
+<<<<<<< HEAD
+=======
+
+>>>>>>> b118255379d12eb7c9aaa2727fcde9942f411c1c
         var str = location.href; //取得整个地址栏
         var num = str.indexOf("?");
         str = str.substr(num + 1);
         var pageArr = new Array();
         $.ajax({
+<<<<<<< HEAD
             type: 'get',
             xhrFields: {
                 withCredentials: true
@@ -42,6 +47,47 @@
                 pageRows:pageArr['row'],
                 nowPage: pageArr['page']
             };
+=======
+                   type: 'get',
+                   xhrFields: {
+                       withCredentials: true
+                   },
+                   url: 'http://115.159.56.141/index.php/Admin/User/getUserCount',
+                   async:false,
+                   cache: false,
+                   dataType: 'json',
+                   success:function (data) {
+                        window.count = data.data.count;
+                   }
+
+               });
+
+
+
+               if (num > 0) {
+                   var arr = str.split("&"); //各个参数放到数组里
+                   for (var i = 0; i < arr.length; i++) {
+                       num = arr[i].indexOf("=");
+                       if (num > 0) {
+                           name = arr[i].substring(0, num);
+                           value = arr[i].substr(num + 1);
+                           pageArr[name] = value;
+                       }
+                   }
+
+
+                   var config = {
+                       url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
+                       data: {page: pageArr['page'], row: pageArr['row']},
+                       rollPage: "5",
+                       totalRows:count,
+                       pageRows:pageArr['row'],
+                       nowPage: pageArr['page']
+                   };
+
+
+
+>>>>>>> b118255379d12eb7c9aaa2727fcde9942f411c1c
             $(document).ready(function () {
                 Ajax(config['url'], config['data'], getData);
             })
