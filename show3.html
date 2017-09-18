@@ -12,22 +12,16 @@
     withCredentials: true
     },
     url: 'http://115.159.56.141/index.php/Admin/Classification/getParentClassificationList',
-
     cache: false,
     dataType: 'json',
     success:secgetData
     });
-
-
-
     function secgetData(data) {
         $(".cardlist").append('<tr>' +
             '<th>父分类名称</th>' +
             '<th>分类id</th>' +
-
             '<th>是否加入精选</th>' +
             ' </tr>');
-
         for (var key in data.data) {
             $(".cardlist").append('<tr>' +
                 '<td>' + data.data[key].c_name + '</td>' +
@@ -36,13 +30,13 @@
                 '<td>' + data.data[key].is_featured + '</td>' +
                 ' </tr>');
         }
-        $(".cardlist").append('<a href="look.html" id="lookfor">点击查看</a>');
+        $(".cardlist").append('<a href="section_operate.html" id="lookfor">点击查看</a>');
     }
     //请输入要查看的父板块<input type="text" id="calltree"/>
 
 </script>
 </head>
 <body>
-        <table class="cardlist"></table>
+<table class="cardlist"></table>
 </body>
 </html>

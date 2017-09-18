@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        function editpwd(){
+            var uname = document.getElementById("un").value;
+            var oldwpd = document.getElementById("opwd").value;
+            var newpwd = document.getElementById("pwd").value;
+            $.ajax({
+                type: 'post',
+                xhrFields: {
+                    withCredentials: true
+                },
+                url: 'http://115.159.56.141/index.php/Admin/User/editPasswd',
+                data: {passwd: "newpwd", old_passwd: "oldpd", username: "uname"},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status = 'ok')
+                        alert("修改成功!");
+                    else alert('修改失败!')
+                }
+            });
+        }
+    </script>
+    <title>修改密码</title>
+    用户名字<input type="text" id="un"><br>
+    请输入旧密码<input type="password" id="opwd"/><br>
+    请输入新密码<input type="password" id="pwd"/><br>
+    <input type="button" value="提交" onclick="editpwd()"/>
+</head>
+<body>
+</body>
+</html>
