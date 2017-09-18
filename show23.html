@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>撤销删除</title>
+    <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
+    <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        $.ajax({
+            type: 'get',
+            xhrFields: {
+                withCredentials: true
+            },
+                url:'http://115.159.56.141/index.php/Admin/Posts/getDeletePosts',
+                data:{page:"1",row:"20"},
+                dataType: 'json',
+                success:getData
+            });
+        function getData(data) {
+                $(".imagetable").append('<tr>' +
+                    '<th>操作</th>' +
+                    '<th>添加时间</th>' +
+                    '<th>作者</th>' +
+                    '<th>浏览数</th>' +
+                    '<th>内容</th>' +
+                    '<th>是否结贴</th>' +
+                    '<th>是否推荐</th>' +
+                    '<th>是否置顶</th>' +
+                    '<th>关键字</th>' +
+                    '<th>帖子id</th>' +
+                    '<th>标题</th>' +
+                    +' </tr>');
+                for (var key in data.data) {
+                    $(".imagetable").append('<tr>' +
+                        '<td><input type="checkbox" name="choose"</td>' +
+                        '<td>' + data.data[key].add_time + '</td>' +
+                        '<td>' + data.data[key].author + '</td>' +
+                        '<td>' + data.data[key].click + '</td>' +
+                        '<td>' + data.data[key].content + '</td>' +
+                        '<td>' + data.data[key].is_end + '</td>' +
+                        '<td>' + data.data[key].is_featured + '</td>' +
+                        '<td>' + data.data[key].is_top + '</td>' +
+                        '<td>' + data.data[key].keywords + '</td>' +
+                        '<td>' + data.data[key].posts_id + '</td>' +
+                        '<td>' + data.data[key].title + '</td>' +
+                        +' </tr>');
+                }
+        }
+        var data1 = [];
+        $(function () {
+            $("#cancel").click(function () {
+                $("input[name='choose']:checked").each(function () {
+                    var n = $(this).parents("tr").index();
+                    var m = $("#tab23").find("tr:eq(" + n + ")").find("td:eq(9)").text();
+                    data1.push(m);
+                });
+                for (var i = 0; i < data1.length; i++) {
+                    var id = data1[i];
+                        $.ajax({
+                            type: 'get',
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            url: 'http://115.159.56.141/index.php/Admin/Posts/actionPosts',
+                            data: {postsId: id, action: 'recovery'},
+                            dataType: 'json',
+                            success: function () {
+                            }
+                        });
+                    }
+                });
+            });
+    </script>
+</head>
+<body>
+<table class="imagetable" id = "tab23"></table>
+<button id="cancel">撤销删除</button>
+</body>
+</html>

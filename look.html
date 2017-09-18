@@ -52,8 +52,9 @@
                     url: 'http://115.159.56.141/index.php/Admin/Classification/editClassification',
                     data:geteditCid(),
                     dataType: 'json',
-                    success: function () {
-                        alert('修改成功');
+                    success: function (data) {
+                        if(data.status=="ok")alert('修改成功');
+                        else alert('修改失败');
                     }
                 });
             });
@@ -78,8 +79,9 @@
                     url: 'http://115.159.56.141/index.php/Admin/Classification/deleteClassification',
                     data:geteditCid2(),
                     dataType: 'json',
-                    success:function () {
-                        alert('删除成功');
+                    success:function (data) {
+                        if(data.status=="ok")lert('删除成功');
+                        else alert("删除失败");
                     }
                 });
             });
@@ -101,8 +103,9 @@
                     url: 'http://115.159.56.141/index.php/Admin/Classification/addClassification',
                     data:getaddCid(),
                     dataType: 'json',
-                    success:function () {
-                        alert('添加成功');
+                    success:function (data) {
+                        if(data.status="ok") alert('添加成功');
+                        else alert('添加失败');
                     }
                 });
             });
@@ -128,8 +131,9 @@
                     url: 'http://115.159.56.141/index.php/Admin/Classification/actionClassification',
                     data:getFeatured(),
                     dataType: 'json',
-                    success:function () {
-                        alert('加精成功');
+                    success:function (data) {
+                        if(data.status == "ok")alert('加精成功');
+                        else alert('加精失败');
                     }
                 });
             });
@@ -153,8 +157,9 @@
                 url: 'http://115.159.56.141/index.php/Admin/Classification/actionClassification',
                 data:getcancelFeatured(),
                 dataType: 'json',
-                success:function () {
-                    alert('取消加精成功');
+                success:function (data) {
+                    if(data == 'ok')alert('取消加精成功');
+                    else alert('取消加精失败');
                 }
             });
         });
@@ -178,8 +183,9 @@
                 url: 'http://115.159.56.141/index.php/Admin/Classification/actionClassification',
                 data:moveParent(),
                 dataType: 'json',
-                success:function () {
-                    alert('移动版块成功');
+                success:function (data) {
+                    if(data.status == "ok")alert('移动版块成功');
+                    else alert('移动版块失败');
                 }
             });
         });

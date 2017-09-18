@@ -6,7 +6,6 @@
     <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <script>
-
     $.ajax({
     type: 'get',
     xhrFields: {
@@ -17,15 +16,11 @@
     cache: false,
     dataType: 'json',
     success:secgetData
-
-
     });
 
 
 
     function secgetData(data) {
-
-
         $(".cardlist").append('<tr>' +
             '<th>父分类名称</th>' +
             '<th>分类id</th>' +

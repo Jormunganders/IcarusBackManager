@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>撤销置顶</title>
+    <title>撤销推荐</title>
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
@@ -11,7 +11,7 @@
             xhrFields: {
                 withCredentials: true
             },
-            url:'http://115.159.56.141/index.php/Admin/Posts/getTopPostsList',
+            url:'http://115.159.56.141/index.php/Admin/Posts/getRecommendPostsList',
             data:{page:"1",row:"20"},
             dataType: 'json',
             success:getData
@@ -51,7 +51,7 @@
             $("#cancel").click(function () {
                 $("input[name='choose']:checked").each(function () {
                     var n = $(this).parents("tr").index();
-                    var m = $("#tab21").find("tr:eq(" + n + ")").find("td:eq(9)").text();
+                    var m = $("#tab22").find("tr:eq(" + n + ")").find("td:eq(9)").text();
                     data1.push(m);
                 });
                 for (var i = 0; i < data1.length; i++) {
@@ -62,7 +62,7 @@
                             withCredentials: true
                         },
                         url: 'http://115.159.56.141/index.php/Admin/Posts/actionPosts',
-                        data: {postsId: id, action: 'cancelSticky'},
+                        data: {postsId: id, action: 'cancelRecommend'},
                         dataType: 'json',
                         success: function () {
                         }
@@ -73,7 +73,7 @@
     </script>
 </head>
 <body>
-<table class="imagetable" id = "tab21"></table>
-<button id="cancel">撤销置顶</button>
+<table class="imagetable" id = "tab22"></table>
+<button id="cancel">撤销推荐</button>
 </body>
 </html>
