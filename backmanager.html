@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>Icarus后台管理系统</title>
+    <script type="text/javascript" src="common/Icarus.js"></script>
+    <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        function showmenu(id){
+            var list=document.getElementById("list"+id);
+            var menu=document.getElementById("menu"+id);
+            if(list.style.display=="none"){
+                document.getElementById("list"+id).style.display="block";
+            }
+            else{
+                document.getElementById("list"+id).style.display="none";
+            }
+        }
+        function iframeclick(key)
+        {
+            document.getElementById("image").src = "show" + key +".html?page=1&row=5";
+        }
+
+    </script>
+    <style>
+        *{margin:0}
+        html{height:100%; background:#fff;}
+        body{height:100%; background:#fff;}
+        #content{height:100%;}
+        #header {
+            width:100%;
+            background:green;height:15%;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        #footer {
+            width:100%;
+            background:yellow;height:5%;
+            position:absolute;
+            left:0;
+            bottom:0;
+        }
+
+        #right{float:left;
+            background:gray;
+            width:70%;
+            height:100%;
+            overflow:auto;
+        }
+        .nav{
+            position: absolute;
+            top:100px;
+            right:20px ;
+        }
+        .nav ul li{
+            float:left;/*让li元素左浮动*/
+        }
+        .nav ul li a{
+            width:80px;
+            height:28px;
+            line-height:28px;
+            background:blue;
+            color:#FFF;
+            margin:5px 10px;
+            font-size:12px;
+            display:block;
+            text-align:center;
+            text-decoration:none;
+        }
+        .nav ul li a:hover{
+            width:78px;
+            height:26px;
+            line-height:28px;
+            border:1px solid red;
+            color:red;
+            background:#FFF;
+        }
+        .nav li{
+
+            list-style:none;
+        }
+        #nav{
+            text-align: center;
+            background: cornflowerblue;
+            position: absolute;
+            width: 80%;
+            top:100px;
+            left:20px;
+            bottom:20px;
+            border-radius: 3px;
+        }
+        .title{
+            background: #336699;
+            color:#fff;
+            font-size: 18px;
+            border:1px solid #336666;
+            border-radius: 3px;
+            cursor:pointer;
+            width:100%;
+            height:40px;
+        }
+        .option{
+            width:99%;
+            margin:0;
+            padding:1px;
+
+        }
+        li{
+            background: white;
+            border: 1px solid #fff;
+            list-style: none;
+            font-size: 16px;
+            line-height: 30px;
+        }
+        a{
+            text-decoration: none;
+            color:black;
+        }
+        .option a:hover{
+            color:#ffcb24
+        }
+    </style>
+</head>
+<body>
+<div id="page-container">
+<div id="header" style="background: url(jihe.png)">
+    <h1>后台管理系统</h1>
+    <div class="nav">
+        <ul>
+            <li><a href="#" onclick="iframeclick(0)>返回主页</a></li>
+            <li><a href="editpasswd.html">修改密码</a></li>
+            <li><a href="#">退出系统</a></li>
+        </ul>
+    </div>
+</div>
+<div id="content">
+    <div class="nav">
+        <ul>
+            <li><a href="#">a</a></li>
+            <li><a href="#">b</a></li>
+            <li><a href="#">c</a></li>
+        </ul>
+
+    </div>
+
+    <div id="sidebar-a">
+        <iframe id="image" width="100%" height="100%" scrolling="none"></iframe>
+    </div>
+
+    <div id="content2">
+        <div id="nav">
+            <div><input type="button" value="用户管理" class="title" id="menu1" onclick="showmenu('1')"/></div>
+            <div id="list1"  style="display: none">
+                <ul class="option">
+                    <li><a href="#"  onclick="iframeclick(1)">用户列表</a></li>
+                </ul>
+            </div>
+            <div><input type="button" value="帖子管理"class="title" id="menu2" onclick="showmenu('2')"/></div>
+            <div id="list2" style="display:none">
+                <ul class="option">
+                    <li><a href="#" onclick="iframeclick(2)">帖子列表</a></li>
+                    <li><a href="#" onclick="iframeclick(21)">置顶帖子</a></li>
+                    <li><a href="#" onclick="iframeclick(22)">推荐帖子</a></li>
+                    <li><a href="#" onclick="iframeclick(23)">回收站</a></li>
+                </ul>
+            </div>
+            <div><input type="button" value="版块管理"class="title" id="menu3" onclick="showmenu('3')"/></div>
+            <div id="list3" style="display:none">
+                <ul class="option">
+                    <li><a href="#" onclick="iframeclick(3)">版块列表</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div id="footer">
+        <div id="altnay">
+            <a href="#">About</a> -
+            <a href="#">Services</a> -
+            <a href="#">Portfolio</a> -
+            <a href="#">Contact Us</a> -
+            <a href="#">Terms of US</a>
+        </div>
+        Copyright &copy;Enlighten Designs Powered by <a href="#">Enlighten Hosting</a> and <a href="#">Vadmin 3.0 CMS</a>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

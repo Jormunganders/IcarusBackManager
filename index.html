@@ -19,35 +19,21 @@
         }
         function iframeclick(key)
         {
-            document.getElementById("image").src = "show" + key +".html?page=1&row=5";
+            document.getElementById("image").src = "show" + key +".html?page=1&row=10";
         }
-        /*$('.lookfor').on('click',function () {
-                    $.ajax({
-                        type: 'get',
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        url:'http://115.159.56.141/index.php/Admin/Classification/getTreeClassification',
-                        data:getfatherCid,
-                        dataType: 'json',
-                        success:showchild
-                    });
-                })
-*/
-        //<button id="addi"><a href="#">i</a></button>
+
     </script>
+
 </head>
 <body>
 <div id="page-container">
-    <div id="header">
+    <div id="header" style="background: url(jihe.png)">
         <h1>后台管理系统</h1>
         <a href="#" onclick="iframeclick(0)">返回首页</a>
         <a href="editpasswd.html">修改密码</a>
         <a href="#">退出系统</a>
     </div>
-    <div id="sidebar-a">
-        <iframe id="image" width="100%" height="100%" scrolling="none"></iframe>
-    </div>
+
     <div id="content">
         <div id="nav">
            <div><input type="button" value="用户管理" class="title" id="menu1" onclick="showmenu('1')"/></div>
@@ -72,6 +58,9 @@
             </ul>
         </div>
     </div>
+    </div>
+    <div id="sidebar-a">
+        <iframe id="image" width="100%" height="100%" scrolling="none"></iframe>
     </div>
     <div id="footer">
         <div id="altnay">

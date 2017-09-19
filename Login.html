@@ -104,22 +104,16 @@
                 verify: verifycode
             };
         }
-<<<<<<< HEAD
+
         function refresh(obj){
             obj.src="http://115.159.56.141/index.php/Admin/Login/showVerify?id="+Math.random();
         }
-=======
->>>>>>> b118255379d12eb7c9aaa2727fcde9942f411c1c
+
+
     </script>
 
 <body>
-<<<<<<< HEAD
-用户<input id="un" name="username" type="text" size="20px"/><br>
-密码<input id="pw" name="password" type="password" size="20px"/><br>
-验证码<input id="pin" name="code" type="text" size="10px"/>
-<img src="http://115.159.56.141/index.php/Admin/Login/showVerify" onclick="refresh(this)"/><br>
-<button onclick="post(LOGIN,getData(),
-=======
+
 
 
 <div class="logo_box">
@@ -140,10 +134,10 @@
         </div>
         <div><img src="http://115.159.56.141/index.php/Admin/Login/showVerify"/></div>
         <div class="mb2"><a class="act-but submit" style="color: #FFFFFF" onclick="post(LOGIN,getData(),
->>>>>>> b118255379d12eb7c9aaa2727fcde9942f411c1c
+
     function(data) {
         if(data.status === 'ok') {
-            window.open('Index.html','_blank');
+            window.open('index.html','_blank');
         }
         else {
             alert(data.message);
