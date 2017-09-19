@@ -240,13 +240,35 @@
         });
     });//隐藏操作*/
     </script>
+    <style type="text/css">
+        .adjust {
+
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+          border-radius: 4px;
+
+        }
+
+        #btn1 {background-color: #008CBA;} /* Blue */
+        #btn2 {background-color: #f44336;} /* Red */
+        #btn3 {background-color: #e7e7e7; color: black;} /* Gray */
+        #btn4 {background-color: #555555;} /* Black */
+    </style>
 </head>
 <body>
+<button id="btn1" class="adjust">删除</button>
+<button id="btn2" class="adjust">推荐</button>
+<button id="btn3" class="adjust">置顶</button>
+<button id="btn4" class="adjust">隐藏</button>
 <table class="imagetable" id="tab2"></table>
 <div class="page"></div><br>
-<button id="btn1">删除</button>
-<button id="btn2">推荐</button>
-<button id="btn3">置顶</button>
-<button id="btn4">隐藏</button>
+
 </body>
 </html>
