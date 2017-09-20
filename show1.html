@@ -6,16 +6,11 @@
     <script type="text/javascript" src="libs/jquery-3.2.1.min.js"></script>
     <link href="doc/css/index.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
-<<<<<<< HEAD
-=======
-
->>>>>>> b118255379d12eb7c9aaa2727fcde9942f411c1c
         var str = location.href; //取得整个地址栏
         var num = str.indexOf("?");
         str = str.substr(num + 1);
         var pageArr = new Array();
         $.ajax({
-<<<<<<< HEAD
             type: 'get',
             xhrFields: {
                 withCredentials: true
@@ -47,53 +42,13 @@
                 pageRows:pageArr['row'],
                 nowPage: pageArr['page']
             };
-=======
-                   type: 'get',
-                   xhrFields: {
-                       withCredentials: true
-                   },
-                   url: 'http://115.159.56.141/index.php/Admin/User/getUserCount',
-                   async:false,
-                   cache: false,
-                   dataType: 'json',
-                   success:function (data) {
-                        window.count = data.data.count;
-                   }
-
-               });
-
-
-
-               if (num > 0) {
-                   var arr = str.split("&"); //各个参数放到数组里
-                   for (var i = 0; i < arr.length; i++) {
-                       num = arr[i].indexOf("=");
-                       if (num > 0) {
-                           name = arr[i].substring(0, num);
-                           value = arr[i].substr(num + 1);
-                           pageArr[name] = value;
-                       }
-                   }
-
-
-                   var config = {
-                       url: 'http://115.159.56.141/index.php/Admin/User/getUserList',
-                       data: {page: pageArr['page'], row: pageArr['row']},
-                       rollPage: "5",
-                       totalRows:count,
-                       pageRows:pageArr['row'],
-                       nowPage: pageArr['page']
-                   };
-
-
-
->>>>>>> b118255379d12eb7c9aaa2727fcde9942f411c1c
             $(document).ready(function () {
                 Ajax(config['url'], config['data'], getData);
             })
         }
         function getData(data) {
             $(".imagetable").append('<tr>' +
+                '<th>操作</th>' +
                 '<th>用户名</th>' +
                 '<th>昵称</th>' +
                 '<th>创建时间</th>' +
@@ -102,19 +57,62 @@
                 '<th>登录次数</th>' +
                 '<th>邮箱</th>' +
                 '<th>用户类型</th>' +
-                '<th>封号</th>' +
+                '<th>封号状态</th>' +
                 '<th>版主</th>' +
                 +' </tr>');
+            for(var key in data.data)
+            {
+                data.data[key].create_time = new Date(parseInt( data.data[key].create_time)*1000).
+                toLocaleString().replace(/:\d{1,2}$/,'');
+                data.data[key].last_login_time = new Date(parseInt( data.data[key].last_login_time)*1000).
+                toLocaleString().replace(/:\d{1,2}$/,'');
+            }
+            for(var key in data.data)
+            {
+                if( data.data[key].is_admin==3)
+                    data.data[key].is_admin = "超级管理员";
+                else if( data.data[key].is_admin==2)
+                    data.data[key].is_admin = "普通管理员";
+                else if(data.data[key].is_admin==1)
+                    data.data[key].is_admin = "版主";
+                else
+                    data.data[key].is_admin = "普通用户";
+            }
+            for(var key in data.data)
+            {
+                if( data.data[key].is_seal==0)
+                    data.data[key].is_seal = "正常";
+                else
+                    data.data[key].is_seal = "封号";
+            }
+            for(var key in data.data) {
+                var id = data.data[key].cid;
+                if (id != 0) {
+                    $.ajax({
+                        type: 'get',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        url: 'http://115.159.56.141/index.php/Admin/Classification/getOneClassification',
+                        cache: false,
+                        data: {cid: id},
+                        dataType: 'json',
+                        success: function (data){
+                        }
+                    });
+                }
+            }
             for (var key in data.data) {
                 $(".imagetable").append('<tr>' +
+                    '<td><input type="checkbox" name = "choose"></td>' +
                     '<td>' + data.data[key].username + '</td>' +
                     '<td>' + data.data[key].user_nick + '</td>' +
                     '<td>' + data.data[key].create_time + '</td>' +
                     '<td>' + data.data[key].last_login_time + '</td>' +
                     '<td>' + data.data[key].last_login_ip + '</td>' +
                     '<td>' + data.data[key].login_times + '</td>' +
-                    '<td>' + data.data[key].email + '</td>' +
-                    '<td>' + data.data[key].is_admin + '</td>' +
+                    '<td>' + data.data[key].email + '</td>'+
+                    '<td>'+ data.data[key].is_admin + '</td>' +
                     '<td>' + data.data[key].is_seal + '</td>' +
                     '<td>' + data.data[key].cid + '</td>' +
                     +' </tr>');
@@ -179,10 +177,119 @@
             }
             return the_first + up_page + link_page + down_page + the_end;
         }
+        var data1 = [];
+        $(function() {
+            $("#btn1").click(function () {
+                $("input[name='choose']:checked").each(function () {
+                    var n = $(this).parents("tr").index();
+                    var m = $("#tab1").find("tr:eq(" + n + ")").find("td:eq(1)").text();
+                    data1.push(m);
+                });
+                for (var i = 0; i < data1.length; i++) {
+                    var id = data1[i];
+                    $.ajax({
+                        type: 'post',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        url: 'http://115.159.56.141/index.php/Admin/User/addAdministrator',
+                        data: {username: id},
+                        cache: false,
+                        dataType: 'json',
+                        success: function () {
+                        }
+
+                    });
+                }
+            });
+        });//置管理员
+        $(function() {
+            $("#btn2").click(function () {
+                var button = document.getElementById("btn");
+                var text = document.getElementById("cname");
+                if (button.style.display == "none")
+                        button.style.display = "block";
+                if(text.style.display == "none")
+                        text.style.display = "block";
+            });
+            var data2 = [];
+            $("#btn").click(function () {
+                $("input[name='choose']:checked").each(function () {
+                    var n = $(this).parents("tr").index();
+                    var m = $("#tab1").find("tr:eq(" + n + ")").find("td:eq(1)").text();
+                    data2.push(m);
+                });
+                for (var i = 0; i < data2.length; i++) {
+                    var id = data2[i];
+                    var classname = document.getElementById("cname").value;
+                    $.ajax({
+                        type: 'post',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        url: 'http://115.159.56.141/index.php/Admin/User/addModerator',
+                        data: {username: id,cName:classname},
+                        cache: false,
+                        dataType: 'json',
+                        success: function () {
+                        }
+                    });
+                }
+            });
+        });
+        var data3 = [];
+        $(function() {
+            $("#btn3").click(function () {
+                $("input[name='choose']:checked").each(function () {
+                    var n = $(this).parents("tr").index();
+                    var m = $("#tab1").find("tr:eq(" + n + ")").find("td:eq(1)").text();
+                    data3.push(m);
+                });
+                for (var i = 0; i < data3.length; i++) {
+                    var id = data3[i];
+                    $.ajax({
+                        type: 'post',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        url: 'http://115.159.56.141/index.php/Admin/User/sealUser',
+                        data: {username: id},
+                        cache: false,
+                        dataType: 'json',
+                        success: function () {
+                        }
+                    });
+                }
+            });
+        });//封号
+
     </script>
+    <style type="text/css">
+        button{
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        #btn1 {background-color: #008CBA;} /* Blue */
+        #btn2 {background-color: #f44336;} /* Red */
+        #btn3 {background-color: #e7e7e7; color: black;} /* Gray */
+        </style>
 </head>
 <body>
-<table class="imagetable"></table>
+<button id="btn1">置管理员</button>
+<button id="btn2">添加版主</button>
+<input type="text" id="cname" value="请输入板块名称" style="display: none">
+<button style="display: none"  id="btn">确认</button>
+<button id="btn3">封号操作</button>
+<table class="imagetable" id="tab1"></table>
 <div class="page"></div>
+
 </body>
 </html>
