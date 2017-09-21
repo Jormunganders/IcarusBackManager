@@ -19,9 +19,23 @@
         }
         function iframeclick(key)
         {
-            document.getElementById("image").src = "show" + key +".html?page=1&row=10";
+            document.getElementById("image").src = "show" + key +".html?page=1&row=5";
         }
-
+        function logout() {
+            $.ajax({
+                type: 'post',
+                xhrFields: {
+                    withCredentials: true
+                },
+                url: 'http://115.159.56.141/index.php/Admin/Login/logout',
+                async:false,
+                cache: false,
+                dataType: 'json',
+                success:function (data) {
+                    window.open('Login.html','_blank');
+                }
+                });
+        }
     </script>
 
 </head>
@@ -31,7 +45,7 @@
         <h1 style='color: white'>后台管理系统</h1>
         <a style='color: white' href="#" onclick="iframeclick(0)">返回首页</a>
         <a style='color: white' href="editpasswd.html">修改密码</a>
-        <a style='color: white' href="#">退出系统</a>
+        <a style='color: white' href="#" onclick="logout()">退出系统</a>
     </div>
 
     <div id="content">
@@ -60,7 +74,7 @@
     </div>
     </div>
     <div id="sidebar-a">
-        <iframe id="image" width="100%" height="100%" scrolling="none" src="show0.html"></iframe>
+        <iframe id="image" width="97%" height="100%" scrolling="auto" src="show0.html"></iframe>
     </div>
     <div id="footer">
         <div id="altnay">
@@ -70,7 +84,6 @@
             <a href="#" class="bot" onclick="window.open('contactus.html','_blank')">Contact Us</a>
             <a href="#" class="bot">Terms of US</a>
         </div>
-        Copyright &copy;Enlighten Designs Powered by <a href="#">Enlighten Hosting</a> and <a href="#">Vadmin 3.0 CMS</a>
     </div>
 </div>
 </body>
